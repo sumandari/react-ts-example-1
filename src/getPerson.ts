@@ -6,5 +6,5 @@ type Person = {
 
 export function getPerson(): Promise<Person> {
   // eslint-disable-next-line prettier/prettier
-  return new Promise((resolve) => setTimeout(() => resolve({ name: 'bob' }), 5000));
+  return new Promise((resolve) => setTimeout(() => resolve({ name: 'bob' }), 1000));
 }

@@ -1,5 +1,14 @@
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef, useMemo } from 'react';
 import { getPerson } from './getPerson';
+
+function sillyExpensiveFunction() {
+  console.log('Executing silly function');
+  let sum = 0;
+  for (let i = 0; i < 10000; i++) {
+    sum += i;
+  }
+  return sum;
+}
 
 type State = {
   name: string | undefined;
@@ -55,6 +64,11 @@ export function PersonScore() {
     }
   }, [loading]);
 
+  const expensiveCalculation = useMemo(() => sillyExpensiveFunction(), []);
+
+  // if we call the sillyExpensiveFunction directly, it will be called everytime re-render
+  // const expensiveCalculation = sillyExpensiveFunction();
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -64,7 +78,7 @@ export function PersonScore() {
       <h3>
         {name}, {score}
       </h3>
-
+      <p>{expensiveCalculation}</p>
       <button ref={addButtonRef} onClick={() => dispatch({ type: 'increment' })}>
         Add
       </button>
