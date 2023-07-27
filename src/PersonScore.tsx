@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useMemo } from 'react';
+import { useEffect, useReducer, useRef, useMemo, useCallback } from 'react';
 import { getPerson } from './getPerson';
 import { Reset } from './Reset';
 
@@ -67,6 +67,8 @@ export function PersonScore() {
 
   const expensiveCalculation = useMemo(() => sillyExpensiveFunction(), []);
 
+  const handleReset = useCallback(() => dispatch({ type: 'reset' }), []);
+
   // if we call the sillyExpensiveFunction directly, it will be called everytime re-render
   // const expensiveCalculation = sillyExpensiveFunction();
 
@@ -84,7 +86,7 @@ export function PersonScore() {
         Add
       </button>
       <button onClick={() => dispatch({ type: 'decrement' })}>Substract</button>
-      <Reset onClick={() => dispatch({ type: 'reset' })} />
+      <Reset onClick={handleReset} />
     </div>
   );
 }
